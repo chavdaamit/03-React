@@ -3,6 +3,7 @@ import Props from "./components/props";
 import Conditional from "./components/Conditional_Rendering";
 import Conditional_rendering from "./components/Conditional_Rendering_05";
 import Uncontrolled_Components from "./components/Uncontrolled_Components_06";
+import Validation from "./components/Validation_08";
 
 const App = () => {
   const [input, setInput] = useState("");
@@ -24,7 +25,9 @@ const App = () => {
       {/* <Conditional /> */}
 
       {/* <Conditional_rendering /> */}
-      <Uncontrolled_Components />
+      {/* <Uncontrolled_Components /> */}
+
+      <Validation />
     </>
   );
 };
