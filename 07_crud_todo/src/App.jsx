@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Addtodo from "./components/Addtodo";
 import ListTodo from "./components/ListTodo";
+import Practice from "./components/practic";
 
 const App = () => {
   const initialTodos = [
@@ -18,22 +19,55 @@ const App = () => {
 
   const [todos, settodos] = useState(initialTodos);
 
-  const handelAdd = (input) => {
-    const newTodo = {
-      id: todos.length + 1,
-      task: input.task,
-      description: input.description,
-    };
+  const [editVal, setEditVal] = useState(null);
 
-    settodos((prev) => [...prev, newTodo]);
+  const handelAdd = (input) => {
+    if (!input.task || !input.description) {
+      alert("task data required");
+      return;
+    } else if (editVal) {
+      settodos((todo) =>
+        todo.map((t) =>
+          t.id === editVal.id
+            ? { task: input.task, description: input.description }
+            : t,
+        ),
+      );
+      setEditVal(null);
+    } else {
+      const newTodo = {
+        id: todos.length + 1,
+        task: input.task,
+        description: input.description,
+      };
+
+      settodos((prev) => [...prev, newTodo]);
+    }
+  };
+
+  const handelDelete = (id) => {
+    settodos(todos.filter((t) => t.id !== id));
+  };
+
+  const handelEdit = (id) => {
+    const todo = todos.find((t) => t.id === id);
+
+    setEditVal(todo);
   };
 
   return (
     <>
-      <Addtodo handelAdd={handelAdd} />
+      <Addtodo handelAdd={handelAdd} editVal={editVal} />
       <br />
       <br />
-      <ListTodo todos={todos} />
+      <ListTodo
+        todos={todos}
+        handelDelete={handelDelete}
+        handelEdit={handelEdit}
+      />
+
+      <br />
+      <Practice />
     </>
   );
 };

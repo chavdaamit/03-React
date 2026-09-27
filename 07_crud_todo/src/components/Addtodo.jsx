@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Addtodo = ({ handelAdd }) => {
+const Addtodo = ({ handelAdd, editVal }) => {
   const [input, setinput] = useState({
     task: "",
     description: "",
   });
+
+  useEffect(() => {
+    editVal ? setinput(editVal) : null;
+  }, [editVal]);
 
   const handelchange = (field, e) => {
     setinput((prev) => {
@@ -45,7 +49,7 @@ const Addtodo = ({ handelAdd }) => {
         />
         <br />
         <br />
-        <button type="submit">Add Todo</button>
+        <button type="submit">{editVal ? "update" : "add"}</button>
       </form>
     </>
   );
