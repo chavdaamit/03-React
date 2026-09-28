@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 const ListTodo = ({ todos, handelDelete, handelEdit }) => {
   return (
     <>
-      <h1>Todo List</h1>
       <Table striped bordered hover>
         <thead>
           <tr>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Addtodo from "./components/Addtodo";
 import ListTodo from "./components/ListTodo";
-import Practice from "./components/practic";
+
 
 const App = () => {
   const initialTodos = [
@@ -66,8 +66,6 @@ const App = () => {
         handelEdit={handelEdit}
       />
 
-      <br />
-      <Practice />
     </>
   );
 };
