@@ -33,9 +33,11 @@ const Addtodo = ({ handelAdd, editVal }) => {
 
   return (
     <>
-      <div className="container mt-5">
+     
+
+      <div className="container add mt-5">
         <h1 className="text-center todolist">Todo List</h1>
-        <div className="d-flex justify-content-center">
+        <div className="  d-flex justify-content-center">
           <form onSubmit={handelSubmit} className="w-50">
             <input
               type="text"
