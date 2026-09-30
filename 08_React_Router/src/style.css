@@ -1,0 +1,21 @@
+.carousel {
+  overflow: hidden;
+}
+
+.carousel-img {
+  width: 500px;
+  height: 650px;
+  object-fit: cover;
+  display: block;
+}
+
+.About {
+  width: 600px;
+}
+
+.About-us{
+    width: 500px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
