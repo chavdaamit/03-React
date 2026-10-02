@@ -1,4 +1,4 @@
-const ListTodo = ({ todos }) => {
+const ListTodo = ({ todos, handelDelete, handeledit }) => {
   return (
     <>
       <table border={2}>
@@ -7,6 +7,7 @@ const ListTodo = ({ todos }) => {
             <th>sr</th>
             <th>task</th>
             <th>description</th>
+            <th colSpan={2}>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -16,6 +17,12 @@ const ListTodo = ({ todos }) => {
                 <td>{index + 1}</td>
                 <td>{t.task}</td>
                 <td>{t.description}</td>
+                <td>
+                  <button onClick={() => handelDelete(t.id)}>Delete</button>
+                </td>
+                <td>
+                  <button onClick={() => handeledit(t.id)}>Edit</button>
+                </td>
               </tr>
             );
           })}
@@ -26,4 +33,3 @@ const ListTodo = ({ todos }) => {
 };
 
 export default ListTodo;
-

@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Practice = ({ handeladd }) => {
+const Practice = ({ handeladd, Editval }) => {
   const [input, setinput] = useState({
     task: "",
     description: "",
   });
+
+  useEffect(() => {
+    Editval ? setinput(Editval) : null;
+  }, [Editval]);
 
   const handelchange = (field, e) => {
     setinput((prev) => {
