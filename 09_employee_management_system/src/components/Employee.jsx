@@ -1,7 +1,12 @@
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, Button } from "react-bootstrap";
 
-import { getAllEmployee } from "../api/studentFetch";
+// import { getAllEmployee } from "../api/studentFetch";
+
+import { getAllEmployee } from "../api/studentaxios";
+
 import { useEffect, useState } from "react";
+
+import { DeleteEmployee } from "../api/studentaxios";
 
 const Employee = () => {
   const [employee, setemployee] = useState([]);
@@ -47,6 +52,16 @@ const Employee = () => {
     );
   }
 
+  const handleDelete = async (id) => {
+    try {
+      await DeleteEmployee(id);
+      await loadData();
+    } catch (error) {
+      console.log("Delete Error:", error);
+      seterror(error.message);
+    }
+  };
+
   return (
     <>
       <Container className="mt-4">
@@ -62,6 +77,7 @@ const Employee = () => {
               <th>Salary</th>
               <th>Status</th>
               <th>Mobile</th>
+              <th colSpan={2}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +94,17 @@ const Employee = () => {
                   <td>{emp.salary}</td>
                   <td>{emp.status}</td>
                   <td>{emp.mobile}</td>
+                  <td>
+                    <Button variant="warning">Edit</Button>
+                  </td>
+                  <td>
+                    <Button
+                      onClick={() => handleDelete(emp._id)}
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  </td>
                 </tr>
               );
             })}

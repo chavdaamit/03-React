@@ -6,12 +6,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import * as formik from "formik";
 
-import { addEmployee } from "../api/studentFetch";
+// import { addEmployee } from "../api/studentFetch";
+
+import { addEmployee } from "../api/studentaxios";
 
 import Validationschema from "../validation/validation";
+import { useNavigate } from "react-router-dom";
 
 function FormExample() {
   const { Formik } = formik;
+
+  const navigate = useNavigate();
 
   return (
     <Container className="mt-5">
@@ -20,23 +25,26 @@ function FormExample() {
       <Formik
         validationSchema={Validationschema}
         onSubmit={(values, { resetForm }) => {
-          addEmployee(values);
+          const result = addEmployee(values);
           resetForm();
+
+          if (result) {
+            navigate("/");
+          }
         }}
         initialValues={{
           name: "",
-          emp_Id: "0",
+          emp_Id: "",
           email: "",
           designation: "",
           department: "",
           salary: "",
-          status: "null",
+          status: "",
           mobile: "",
         }}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
           <Form noValidate onSubmit={handleSubmit}>
-            {/* Name, Employee ID, Email */}
             <Row className="mb-3">
               <Form.Group as={Col} md="4">
                 <Form.Label>Name</Form.Label>
@@ -103,7 +111,6 @@ function FormExample() {
               </Form.Group>
             </Row>
 
-            {/* Designation, Department, Salary */}
             <Row className="mb-3">
               <Form.Group as={Col} md="4">
                 <Form.Label>Designation</Form.Label>
@@ -168,7 +175,6 @@ function FormExample() {
               </Form.Group>
             </Row>
 
-            {/* Status, Mobile */}
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Label>Status</Form.Label>
@@ -213,7 +219,6 @@ function FormExample() {
               </Form.Group>
             </Row>
 
-            {/* Submit */}
             <Button type="submit">Add Employee</Button>
           </Form>
         )}
