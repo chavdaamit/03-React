@@ -1,19 +1,21 @@
-import { Container, Table, Button } from "react-bootstrap";
-
-// import { getAllEmployee } from "../api/studentFetch";
-
-import { getAllEmployee } from "../api/studentaxios";
 
 import { useEffect, useState } from "react";
+import { Container, Table, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-import { DeleteEmployee } from "../api/studentaxios";
+import {
+  getAllEmployee,
+  DeleteEmployee,
+} from "../api/studentaxios";
+
+import Loading from "../ui/Loading";
 
 const Employee = () => {
-  const [employee, setemployee] = useState([]);
+  const [employee, setEmployee] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [Loading, setLoading] = useState(false);
-
-  const [error, seterror] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
@@ -22,96 +24,104 @@ const Employee = () => {
   const loadData = async () => {
     try {
       setLoading(true);
+      setError(null);
+
       const data = await getAllEmployee();
-      setemployee(data);
-    } catch (error) {
-      seterror(error.message);
+      setEmployee(data);
+    } catch (err) {
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  if (Loading) {
-    return (
-      <div className="container mt-5 text-center">
-        <h3>Loading...</h3>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="container mt-5 text-center">
-        <h3 className="text-danger">Something went wrong</h3>
-        <p>{error}</p>
-
-        <button className="btn btn-primary" onClick={loadData}>
-          Try Again
-        </button>
-      </div>
-    );
-  }
-
   const handleDelete = async (id) => {
     try {
       await DeleteEmployee(id);
       await loadData();
-    } catch (error) {
-      console.log("Delete Error:", error);
-      seterror(error.message);
+    } catch (err) {
+      setError(err.message || "Delete failed");
     }
   };
 
-  return (
-    <>
-      <Container className="mt-4">
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Name</th>
-              <th>Emp_Id</th>
-              <th>Email</th>
-              <th>Designation</th>
-              <th>Department</th>
-              <th>Salary</th>
-              <th>Status</th>
-              <th>Mobile</th>
-              <th colSpan={2}>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employee.map((emp, index) => {
-              return (
-                <tr key={emp._id}>
-                  <td>{index + 1}</td>
+  if (loading) {
+    return <Loading />;
+  }
 
-                  <td> {emp.name}</td>
-                  <td>{emp.emp_Id}</td>
-                  <td>{emp.email}</td>
-                  <td>{emp.designation}</td>
-                  <td>{emp.department}</td>
-                  <td>{emp.salary}</td>
-                  <td>{emp.status}</td>
-                  <td>{emp.mobile}</td>
-                  <td>
-                    <Button variant="warning">Edit</Button>
-                  </td>
-                  <td>
-                    <Button
-                      onClick={() => handleDelete(emp._id)}
-                      variant="danger"
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+  if (error) {
+    return (
+      <Container className="mt-5 text-center">
+        <h3 className="text-danger">Something went wrong</h3>
+        <p>{error}</p>
+
+        <Button variant="primary" onClick={loadData}>
+          Try Again
+        </Button>
       </Container>
-    </>
+    );
+  }
+
+  return (
+    <Container className="mt-4">
+      <Table striped bordered hover variant="dark" responsive>
+        <thead>
+          <tr>
+            <th>Sr.No</th>
+            <th>Name</th>
+            <th>Emp_Id</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Status</th>
+            <th>Mobile</th>
+            <th colSpan={2}>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {employee.length > 0 ? (
+            employee.map((emp, index) => (
+              <tr key={emp._id}>
+                <td>{index + 1}</td>
+                <td>{emp.name}</td>
+                <td>{emp.emp_Id}</td>
+                <td>{emp.email}</td>
+                <td>{emp.designation}</td>
+                <td>{emp.department}</td>
+                <td>{emp.salary}</td>
+                <td>{emp.status}</td>
+                <td>{emp.mobile}</td>
+
+                <td>
+                  <Button
+                    variant="warning"
+                    onClick={() => navigate(`/update/${emp._id}`)}
+                  >
+                    Edit
+                  </Button>
+                </td>
+
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(emp._id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={11} className="text-center">
+                No employees found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </Container>
   );
 };
 

@@ -22,6 +22,10 @@ const App = () => {
           path: "/add",
           element: <AddEmployee />,
         },
+        {
+          path: "update/:id",
+          element: <AddEmployee />,
+        },
       ],
     },
   ]);

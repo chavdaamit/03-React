@@ -47,3 +47,39 @@ export const DeleteEmployee = async (id) => {
     throw error;
   }
 };
+
+export const UpdateEmplpyee = async (id, empData) => {
+  try {
+    const res = await axios.patch(`${BASEURL}/${id}`, empData);
+
+    if (res.status !== 200) {
+      throw new Error("Faild to Update Employee Data");
+    }
+    console.log("update Response:", res.data);
+    return res.data.employees;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};
+
+
+
+export const getEmpById = async (id) => {
+  try {
+    const res = await axios.get(`${BASEURL}/${id}`);
+
+    console.log("Employee By ID:", res.data);
+
+    return res.data.EmployeeData;
+  } catch (error) {
+    console.error(
+      "Get Employee Error:",
+      error.response?.data?.message || error.message
+    );
+
+    throw new Error(
+      error.response?.data?.message || error.message
+    );
+  }
+};
