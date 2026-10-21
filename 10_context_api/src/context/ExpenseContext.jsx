@@ -28,31 +28,75 @@ export const ExpenseProvider = ({ children }) => {
 
   const [editValue, setEditValue] = useState(null);
 
+  // Add and Update Expense
   const handelAdd = (data) => {
+    if (!data) {
+      return console.log("Add expense data");
+    }
+
     if (editValue) {
       setExpense((prev) =>
         prev.map((item) =>
-          item.Id === editValue.Id ? { ...item, ...data } : item,
+          item.Id === editValue.Id
+            ? {
+                ...item,
+                ...data,
+                Id: editValue.Id,
+                Amout: Number(data.Amout),
+              }
+            : item,
         ),
       );
+
       setEditValue(null);
     } else {
-      setExpense((prev) => [...prev, data]);
+      const newExpense = {
+        ...data,
+        Id: Date.now(),
+        Amout: Number(data.Amout),
+      };
+
+      setExpense((prev) => [...prev, newExpense]);
     }
   };
 
+  // Edit Expense
   const handelEdit = (item) => {
     setEditValue(item);
   };
 
+  // Delete Expense
   const handelDelete = (index) => {
     setExpense((prev) => prev.filter((item, i) => i !== index));
   };
 
+  // Total Debit
+  const debit = expense
+    .filter((item) => item.Type === "Debit")
+    .reduce((acc, curr) => acc + Number(curr.Amout), 0);
+
+  // Total Credit
+  const credit = expense
+    .filter((item) => item.Type === "Credit")
+    .reduce((acc, curr) => acc + Number(curr.Amout), 0);
+
+  // Balance
+  const balance = credit - debit;
+
   return (
     <>
       <ExpenseContext.Provider
-        value={{ expense, handelAdd, handelDelete, editValue, handelEdit }}
+        value={{
+          expense,
+          handelAdd,
+          handelDelete,
+          editValue,
+          handelEdit,
+          setEditValue,
+          debit,
+          credit,
+          balance,
+        }}
       >
         {children}
       </ExpenseContext.Provider>
