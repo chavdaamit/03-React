@@ -1,9 +1,14 @@
 import React, { useContext, useState } from "react";
 import { ExpenseContext } from "../context/ExpenseContext";
-
 const ExpenseList = () => {
-  const { expense, handelDelete, handelEdit, debit, credit, balance } =
-    useContext(ExpenseContext);
+  const {
+    ExpenseList: expense = [],
+    handelDelete,
+    handelEdit,
+    debit = 0,
+    credit = 0,
+    balance = 0,
+  } = useContext(ExpenseContext);
 
   const [expenseQuery, setExpenseQuery] = useState({
     title: "",
@@ -32,7 +37,7 @@ const ExpenseList = () => {
       expenseQuery.Category === "all"
         ? true
         : item.Category === expenseQuery.Category,
-    );  
+    );
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -126,7 +131,7 @@ const ExpenseList = () => {
                 <td>{item.Type}</td>
 
                 <td>
-                  <button onClick={() => handelDelete(index)}>Delete</button>
+                  <button onClick={() => handelDelete(item.Id)}>Delete</button>
                 </td>
 
                 <td>
