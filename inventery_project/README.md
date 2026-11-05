@@ -2,6 +2,8 @@
 
 A modern and easy-to-use Inventory Management System developed using **React.js and Redux Toolkit**. This application helps manage product inventory with simple CRUD operations, real-time search, and multiple sorting options.
 
+Live Link:-https://mellifluous-frangollo-59e84e.netlify.app/
+
 ## ✨ Key Features
 
 - ➕ **Add Products** – Add new products with name, quantity, price, and category.
