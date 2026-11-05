@@ -46,6 +46,13 @@ const List = () => {
     });
   };
 
+  const handelReset = () => {
+    setProductQuery({
+      search: "",
+      sort: "asc",
+    });
+  };
+
   return (
     <>
       <input
@@ -66,7 +73,11 @@ const List = () => {
         <option value="QuantityAscending">Quantity Ascending</option>
         <option value="Quantitydescending">Quantity descending</option>
       </select>
-
+      <br />
+      <br />
+      <button onClick={handelReset}>resett</button>
+      <br />
+      <br />
       <table border={2}>
         <thead>
           <tr>

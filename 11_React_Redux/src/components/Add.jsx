@@ -89,6 +89,8 @@ const Add = () => {
         <br />
         <br />
         <button type="submit">{editVal ? "Update" : "Add"}</button>
+        <br />
+        <br />
       </form>
     </>
   );
