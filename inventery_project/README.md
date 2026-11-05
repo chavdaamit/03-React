@@ -1,18 +1,82 @@
-# React + Vite
+# 📦 Inventory Management System
 
-Live Link:https://mellifluous-frangollo-59e84e.netlify.app/
+A modern and easy-to-use Inventory Management System developed using **React.js and Redux Toolkit**. This application helps manage product inventory with simple CRUD operations, real-time search, and multiple sorting options.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ Key Features
 
-Currently, two official plugins are available:
+- ➕ **Add Products** – Add new products with name, quantity, price, and category.
+- 📋 **View Products** – Display all products in a structured table.
+- ✏️ **Edit Products** – Update existing product information.
+- 🗑️ **Delete Products** – Remove products from the inventory.
+- 🔍 **Search Products** – Find products instantly by name.
+- ↕️ **Sorting Functionality** – Sort products by ID, price, and quantity.
+- 🔄 **Reset Filters** – Reset search and sorting options.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
 
-## React Compiler
+| Technology | Purpose |
+|---|---|
+| React.js | Frontend UI |
+| Redux Toolkit | State Management |
+| React Redux | Redux Integration |
+| JavaScript | Application Logic |
+| HTML5 | Structure |
+| CSS3 | Styling |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📸 Project Overview
 
-## Expanding the ESLint configuration
+The application provides a simple interface to manage inventory products efficiently.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Product Details:**
+- Product Name
+- Quantity
+- Price
+- Category
+
+## 📁 Folder Structure
+
+```text
+src/
+│
+├── app/
+│   └── store.js
+│
+├── features/
+│   └── inventorySlice.js
+│
+├── components/
+│   ├── Add.jsx
+│   └── List.jsx
+│
+├── App.jsx
+└── main.jsx
+```
+
+## ⚡ Getting Started
+
+Follow these steps to run the project locally.
+
+
+## 🧠 What I Learned
+
+Through this project, I practiced:
+
+- React Functional Components and Hooks.
+- Redux Toolkit and Centralized State Management.
+- Creating and Managing Redux Slices.
+- CRUD Operations (Create, Read, Update, Delete).
+- Searching and Sorting Data.
+- Managing Form Inputs using useState.
+- Accessing and Updating Redux State.
+
+## 🔮 Future Improvements
+
+- Product Category Filtering.
+- Form Validation.
+- Responsive UI Design.
+- Local Storage Integration.
+
+
+⭐ **If you find this project useful, please give it a Star!**
+
+Made with ❤️ by Amit Chavda.
